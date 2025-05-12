@@ -55,10 +55,38 @@ $('#q2').click(function() {
   $(this).css('background-color', '#ffc0cb')
 });
 // 第3問  id='q3'の要素をクリックしたらこの要素の前後とこの要素内の前後にテキストを挿入せよ。
+$('#q3').click(function() {
+  let text = 'サンプルテキスト'
+  $(this).before(text);
+  $(this).after(text);
+  $(this).prepend(text);
+  $(this).append(text);
+});
 // 第4問  id='q4'の要素をクリックしたらこの要素にlargeというクラスを付与せよ。
+$('#q4').click(function() {
+  $(this).addClass('large');
+});
 // 第5問  id='q5'の要素をクリックしたらこの要素を2秒かけてmargin-topとmargin-leftを100pxの位置に移動させよ。
+$('#q5').click(function() {
+  $(this).css({
+    'margin-top': '100px',
+    'margin-left': '100px',
+    'transition': '2s'
+  });
+});
 // 第6問  id='q6'の子要素をクリックしたら、その要素のインデックス（何番目か）をconsole.log()とalert()を用いて表示させよ。
+$('#q6 li').click(function() {
+  order = $(this).index();
+  console.log(order);
+  alert(order);
+});
 // 第7問  id='q7'の要素をクリックしたらこの要素に設定してあるdata属性をconsoleに表示せよ。
+
+$('#q7').click(function() {
+  let showData = $(this).data();
+  console.log(showData);
+});
+
 </script>
 </body>
 </html>

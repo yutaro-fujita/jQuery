@@ -61,27 +61,29 @@
       // ・連続で何回もホバーした時、手を止めているのにリストがスライドし続けないか
       // ・出てきたリストの上にホバーできるか
       // ※必ずレビュー前に上記挙動が問題ないか確認するこ
-      
-      hoverTarget = '.menu__list li';
-      /*slideMenu = $(slideTarget).children().eq(1);*/
+
+      const hoverTarget = '.menu__list li';
 
       mouseOnFunc = function(){
-        slideMenu = $(this).children().eq(1);
-        $(slideMenu).stop().slideDown();
+      const slideMenu = $(this).children().eq(1);
 
-        //childrenメソッドの引数しらべる
+        $(slideMenu).stop().slideDown();
       }
 
       mouseOffFunc = function(){
-        slideMenu = $(this).children().eq(1);
+      const slideMenu = $(this).children().eq(1);
+
         $(slideMenu).stop().slideUp();
       }
 
       $(hoverTarget).hover(mouseOnFunc, mouseOffFunc);
-/*
-$(`${hoverTarget} ul`).css('display', 'block');
-$(hoverTarget).children().eq(8).css('color', 'red');
-*/
+
+      //課題
+      //slideMenuの宣言を関数定義内に入れないと動かないのはなぜか？
+      //ど真ん中を触ると左右にぶれる状態になってしまう
+      //>>animal/plantの長さが違うので仕方がない（スクロールバーが
+      //画面の高さ次第で出る/出ない）？
+
     </script>
   </body>
 </html>

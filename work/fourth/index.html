@@ -64,7 +64,7 @@
       
       hoverTarget = '.menu__list li';
       /*slideMenu = $(slideTarget).children().eq(1);*/
-/*
+
       mouseOnFunc = function(){
         slideMenu = $(this).children().eq(1);
         $(slideMenu).stop().slideDown();
@@ -76,10 +76,12 @@
         slideMenu = $(this).children().eq(1);
         $(slideMenu).stop().slideUp();
       }
-*/
+
+      $(hoverTarget).hover(mouseOnFunc, mouseOffFunc);
+/*
 $(`${hoverTarget} ul`).css('display', 'block');
 $(hoverTarget).children().eq(8).css('color', 'red');
-
+*/
     </script>
   </body>
 </html>

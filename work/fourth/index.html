@@ -64,25 +64,48 @@
 
       const hoverTarget = '.menu__list li';
 
-      mouseOnFunc = function(){
-      const slideMenu = $(this).children().eq(1);
-
+      const mouseOnFunc = function(){
+        const slideMenu = $(this).children('.menu__list__childList');
         $(slideMenu).stop().slideDown();
       }
 
-      mouseOffFunc = function(){
-      const slideMenu = $(this).children().eq(1);
-
+      const mouseOffFunc = function(){
+        const slideMenu = $(this).children('.menu__list__childList');
         $(slideMenu).stop().slideUp();
       }
 
       $(hoverTarget).hover(mouseOnFunc, mouseOffFunc);
 
-      //課題
-      //slideMenuの宣言を関数定義内に入れないと動かないのはなぜか？
-      //ど真ん中を触ると左右にぶれる状態になってしまう
-      //>>animal/plantの長さが違うので仕方がない（スクロールバーが
-      //画面の高さ次第で出る/出ない）？
+      /*
+      問１. slideMenuの宣言を関数定義内に入れないと動かないのはなぜか？
+      >> mouseOn/OffFuncが実行されて初めて、hoverTargetとthisの連関が生まれるため
+      (関数外で先にthisを使って宣言しても、hoverイベントで実行されるFunc内に無いので
+      hoverTargetと連関する機会がない>>thisが何も指示できない状態）
+      
+      問２. stopメソッドでキューに溜まったアニメーションのひとつひとつが
+      完了まで（既定値 .4s）実行されつづけててしまう問題（ホバーON/OFFの切り替えとスライドの切り替え
+      が対応しない問題）の解消となる具体的なロジックは何か？処理はどうなっているか？
+      
+      >> 例えば、slideDown＞stopという順にすると、ホバーONで即時完全show状態になる。
+      よって、stopはアニメーションプロパティのみを停止ししており結果（display:noneの解除）
+      じたいは実行している、という仮説がなりたつ。
+      
+      この仮説に基づくと↑の処理は、
+      
+      マウスON＞slideDown開始＞マウスoff＞途中やりのslideDownのアニメーションが停止され、
+      表示状態にする結果が返る＞slideUp開始...
+      
+      という交代が繰り返される処理になるハズ。
+      
+      >>ON/OFF切り替え時にその途中位置から滑らかにDown/Upが切り替えられている
+      ように見えるのはなぜか。
+      （仮説に基づく処理のフロー通りなら、
+      いったん100/0の位置に行く瞬間があるはず。
+      >> 1フレーム等極端に短い時間なので目視できない
+      >> その瞬間がないかのようにブラウザやjQueryで補正されている）
+      >> 上記仮説が誤っている
+      ）
+      */
 
     </script>
   </body>

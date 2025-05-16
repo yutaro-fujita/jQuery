@@ -104,16 +104,17 @@
 
         const getValue = $(this).val();
         const listItem = '.list li';
-        
-        console.log(getValue);
 
-        $(listItem).filter(function(){
-          return $(this).data('categoryType') === getValue;
-        }).show();
-        
-        $(listItem).filter(function(){
-          return $(this).data('categoryType') !== getValue;
-        }).hide();
+        if (getValue === 'all') {
+          $(listItem).show();
+        } else {
+          $(listItem).filter(function(){
+            return $(this).data('categoryType') === getValue;
+          }).show();
+          $(listItem).filter(function(){
+            return $(this).data('categoryType') !== getValue;
+          }).hide();
+        }
 
         /*
         $(listItem).each(function(index, element){

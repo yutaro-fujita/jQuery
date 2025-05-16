@@ -56,7 +56,7 @@ $('#q2').click(function() {
 });
 // 第3問  id='q3'の要素をクリックしたらこの要素の前後とこの要素内の前後にテキストを挿入せよ。
 $('#q3').click(function() {
-  let text = 'サンプルテキスト'
+  const text = 'サンプルテキスト'
   $(this).before(text);
   $(this).after(text);
   $(this).prepend(text);
@@ -76,17 +76,15 @@ $('#q5').click(function() {
 });
 // 第6問  id='q6'の子要素をクリックしたら、その要素のインデックス（何番目か）をconsole.log()とalert()を用いて表示させよ。
 $('#q6 li').click(function() {
-  order = $(this).index();
+  const order = $(this).index();
   console.log(order);
   alert(order);
 });
 // 第7問  id='q7'の要素をクリックしたらこの要素に設定してあるdata属性をconsoleに表示せよ。
-
 $('#q7').click(function() {
-  let showData = $(this).data();
+  const showData = $(this).data();
   console.log(showData);
 });
-
 </script>
 </body>
 </html>

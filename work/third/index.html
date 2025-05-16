@@ -31,12 +31,11 @@
       // .addClass() クラスを追加します。
       // .removeClass() クラスを削除します。
       $('.wrapper .nav li').click(function() {
-        let order = $(this).index();
-        let target = '.wrapper .contents li'
-        let hidden = 'is-hidden'
+        const order = $(this).index();
+        const target = '.wrapper .contents li'
+        const hidden = 'is-hidden'
         $(target).addClass(hidden);
         $(target).eq(order).removeClass(hidden);
-        console.log(order);
       });
     </script>
   </body>

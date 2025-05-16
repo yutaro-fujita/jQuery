@@ -60,7 +60,23 @@
       // ・ホバー時にリストがスライドしながら表示されること
       // ・連続で何回もホバーした時、手を止めているのにリストがスライドし続けないか
       // ・出てきたリストの上にホバーできるか
-      // ※必ずレビュー前に上記挙動が問題ないか確認すること
+      // ※必ずレビュー前に上記挙動が問題ないか確認するこ
+
+      const hoverTarget = '.menu__list li';
+      const childList = '.menu__list__childList'
+
+      const mouseOnFunc = function(){
+        const slideMenu = $(this).children(childList);
+        $(slideMenu).stop().slideDown();
+      }
+
+      const mouseOffFunc = function(){
+        const slideMenu = $(this).children(childList);
+        $(slideMenu).stop().slideUp();
+      }
+
+      $(hoverTarget).hover(mouseOnFunc, mouseOffFunc);
+
     </script>
   </body>
 </html>

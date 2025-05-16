@@ -104,87 +104,26 @@
 
         const getValue = $(this).val();
         const listItem = '.list li';
-
+        
+        // ALLが選ばれた場合
         if (getValue === 'all') {
           $(listItem).show();
-        } else {
-          $(listItem).each(function(index, element){
+        }
+        
+        // ALL以外が選ばれた場合
+        else {
+          $(listItem).each(function(_, element) {
             if ($(element).data('categoryType') === getValue) {
-              $(this).show();
+              $(this).show(); // 一致なら表示
             } else {
-              $(this).hide();
+              $(this).hide(); // 不一致なら非表示
             }
           });
         }
 
-        /*
-        if (getValue === 'all') {
-          $(listItem).show();
-        } else {
-          $(listItem).filter(function(){
-            return $(this).data('categoryType') === getValue;
-          }).show();
-          $(listItem).filter(function(){
-            return $(this).data('categoryType') !== getValue;
-          }).hide();
-        }
-        */
-
-        /*
-        $(listItem).each(function(index, element){
-          console.log(element);
-          
-          //こっからつまっとるelementってliみたいな
-          const getData = $(element).data('categoryType');
-          console.log(getData)
-          if(getData === getValue){
-            $(listItem).show;
-          } else {
-            $(listItem).hide;
-          }
-          
-        })
-          */
-          
       }
 
       $('.select').change(selected);
-      /*
-      $('.select').on('change', selected);
-      */
-
-      //これselectのoption要素をクリックしたときのテンプレ
-      //クリックが使えないんです
-      //
-
-      /*
-      const getList = [];
-      const targetList = $('.list').children('li');
-
-      for (i = 0; i < targetList.length; i++) {
-        getList[i] = targetList.eq(i);
-
-      }
-      console.log(getList);
-      */
-
-      /*
-      function showList() {
-        const getValue = $(this).val();
-
-        
-
-        for (i=0; i < .)
-        
-
-
-
-        const getData = $(this).data('category-type');
-        $('option').show();
-      }
-      
-      $('option').on('click', showList);
-      */
 
     </script>
   </body>

@@ -108,6 +108,19 @@
         if (getValue === 'all') {
           $(listItem).show();
         } else {
+          $(listItem).each(function(index, element){
+            if ($(element).data('categoryType') === getValue) {
+              $(this).show();
+            } else {
+              $(this).hide();
+            }
+          });
+        }
+
+        /*
+        if (getValue === 'all') {
+          $(listItem).show();
+        } else {
           $(listItem).filter(function(){
             return $(this).data('categoryType') === getValue;
           }).show();
@@ -115,6 +128,7 @@
             return $(this).data('categoryType') !== getValue;
           }).hide();
         }
+        */
 
         /*
         $(listItem).each(function(index, element){
@@ -132,7 +146,6 @@
         })
           */
           
-      
       }
 
       $('.select').change(selected);

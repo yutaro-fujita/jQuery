@@ -105,18 +105,14 @@
         const getValue = $(this).val();
         const listItem = '.list li';
         
-        // ALLが選ばれた場合
         if (getValue === 'all') {
           $(listItem).show();
-        }
-        
-        // ALL以外が選ばれた場合
-        else {
+        } else {
           $(listItem).each(function(_, element) {
             if ($(element).data('categoryType') === getValue) {
-              $(this).show(); // 一致なら表示
+              $(this).show();
             } else {
-              $(this).hide(); // 不一致なら非表示
+              $(this).hide();
             }
           });
         }

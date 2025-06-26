@@ -15,7 +15,71 @@
   </div>
   <script src="../../common/js/jquery.js"></script>
   <script>
-    // 回答はここに書いてね
+    $.ajax({
+      url: 'https://pokeapi.co/api/v2/pokemon/1',
+      method: 'GET'
+    }).done(function(res) {
+
+      console.log(res);
+
+      function encounter() {
+        let encounterHtml =
+        `
+          <p class="name">${res.name}</p>
+          <div>
+            <img class="img" src="${res.sprites.front_default}" alt="${res.name}">
+          </div>
+          <div>
+            <button class="btn" id="catch">捕まえる</button>
+            <button class="btn" data-js="reset">逃げる</button>
+          </div>
+        `
+        $('.wrapper').html(encounterHtml);
+      }
+
+      function fiftyFifty() {
+        let isGet = Math.round(Math.random());
+        console.log(isGet);
+        isGet === 1 ? success() : failure();
+      }
+
+      //ボール画像これでいいのか？？？？
+      function success() {
+        let doneHtml =
+        `
+          <p class="name">ゲットしました</p>
+          <div>
+            <img class="img" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png" alt="">
+          </div>
+          <button class="btn" data-js="reset">戻る</button>
+        `
+        $('.wrapper').html(doneHtml);
+      }
+
+      function failure() {
+        let failHtml =
+        `
+          <p class="text">逃げられてしまった...</p>
+          <button class="btn mt" data-js="reset">戻る</button>
+        `
+        $('.wrapper').html(failHtml);
+      }
+
+      function backOrRun() {
+        let backOrRunHtml =
+        `
+          <button type="button" class="btn search-btn" id="pokemon_search">ポケモンを探す</button>
+        `
+        $('.wrapper').html(backOrRunHtml);
+      }
+
+      $(document).on('click', '#pokemon_search.btn', encounter);
+      $(document).on('click', '#catch.btn', fiftyFifty);
+      $(document).on('click', '[data-js="reset"].btn', backOrRun);
+
+    }).fail(function(res) {
+      console.log('エラーが発生しました。')
+    });
   </script>
 </body>
 </html>

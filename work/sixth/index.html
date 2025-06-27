@@ -67,7 +67,6 @@
     }
 
     function success() {
-
       $.ajax({
         url: 'https://pokeapi.co/api/v2/item/4',
         method: 'GET'
@@ -98,8 +97,7 @@
       $('.wrapper').html(backOrRunHtml);
     }
 
-    $(document).on('click', '#pokemon_search.btn', function() {
-
+    function searchPokemon() {
       const id = drawPokemonId();
 
       $.ajax({
@@ -112,10 +110,10 @@
       }).fail(function(err) {
         console.log('PokeAPIの取得に失敗しました。')
       });
-    })
+    }
 
+    $(document).on('click', '#pokemon_search.btn', searchPokemon);
     $(document).on('click', '#catch.btn', fiftyFifty);
-
     $(document).on('click', '[data-js="reset"].btn', backOrRun);
 
   </script>

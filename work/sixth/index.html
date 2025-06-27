@@ -28,17 +28,12 @@
 
         function encounter() {
 
-          $.ajax({
-            url: `${res.species.url}`,
-            method: 'GET'
-
-          }).done(function(rs) {
-            console.log(rs.names[0].name);
+          function viewEncounter(name) {
             const encounterHtml =
             `
-              <p class="name">${rs.names[0].name}</p>
+              <p class="name">${name}</p>
               <div>
-                <img class="img" src="${res.sprites.front_default}" alt="${rs.names[0].name}">
+                <img class="img" src="${res.sprites.front_default}" alt="${name}">
               </div>
               <div>
                 <button class="btn" id="catch">捕まえる</button>
@@ -46,6 +41,14 @@
               </div>
             `
             $('.wrapper').html(encounterHtml);
+          }
+
+          $.ajax({
+            url: `${res.species.url}`,
+            method: 'GET'
+
+          }).done(function(rs) {
+            viewEncounter(rs.names[0].name);
 
           }).fail(function(er) {
             console.log(
@@ -53,62 +56,12 @@
               日本語なまえの取得に失敗しました。
             `
             )
+            viewEncounter('　　　　');
           })
 
-        }
-
-        function fiftyFifty() {
-          const isGet = Math.round(Math.random());
-          isGet === 1 ? success() : failure();
-        }
-
-        function success() {
-          $.ajax({
-            url: 'https://pokeapi.co/api/v2/item/4',
-            method: 'GET'
-
-          }).done(function(r) {
-            console.log(r.sprites.default);
-            const doneHtml =
-            `
-              <p class="name">ゲットしました</p>
-              <div>
-                <img class="img" src="${r.sprites.default}" alt="モンスターボール">
-              </div>
-              <button class="btn" data-js="reset">戻る</button>
-            `
-            $('.wrapper').html(doneHtml);
-
-          }).fail(function(e) {
-            console.log(
-            `
-              モンスターボール画像の取得に失敗しました。
-            `
-            )
-          })
-
-        }
-
-        function failure() {
-          const failHtml =
-          `
-            <p class="text">逃げられてしまった...</p>
-            <button class="btn mt" data-js="reset">戻る</button>
-          `
-          $('.wrapper').html(failHtml);
-        }
-
-        function backOrRun() {
-          const backOrRunHtml =
-          `
-            <button type="button" class="btn search-btn" id="pokemon_search">ポケモンを探す</button>
-          `
-          $('.wrapper').html(backOrRunHtml);
         }
 
         encounter();
-        $(document).on('click', '#catch.btn', fiftyFifty);
-        $(document).on('click', '[data-js="reset"].btn', backOrRun);
 
       }).fail(function(err) {
         console.log(
@@ -118,6 +71,72 @@
         )
       });
     })
+
+    function fiftyFifty() {
+      const isGet = Math.round(Math.random());
+      isGet === 1 ? success() : failure();
+    }
+
+    function success() {
+
+      function viewSuccess(ballImage) {
+        const doneHtml =
+        `
+          <p class="name">ゲットしました</p>
+          <div>
+            <img class="img" src="${ballImage}" alt="モンスターボール">
+          </div>
+          <button class="btn" data-js="reset">戻る</button>
+        `
+        $('.wrapper').html(doneHtml);
+      }
+
+      $.ajax({
+        url: 'https://pokeapi.co/api/v2/item/4',
+        method: 'GET'
+
+      }).done(function(r) {
+        viewSuccess(r.sprites.default);
+        // const doneHtml =
+        // `
+        //   <p class="name">ゲットしました</p>
+        //   <div>
+        //     <img class="img" src="${r.sprites.default}" alt="モンスターボール">
+        //   </div>
+        //   <button class="btn" data-js="reset">戻る</button>
+        // `
+        // $('.wrapper').html(doneHtml);
+
+      }).fail(function(e) {
+        console.log(
+        `
+          モンスターボール画像の取得に失敗しました。
+        `
+        )
+        viewSuccess('');
+      })
+    }
+
+    function failure() {
+      const failHtml =
+      `
+        <p class="text">逃げられてしまった...</p>
+        <button class="btn mt" data-js="reset">戻る</button>
+      `
+      $('.wrapper').html(failHtml);
+    }
+
+    function backOrRun() {
+      const backOrRunHtml =
+      `
+        <button type="button" class="btn search-btn" id="pokemon_search">ポケモンを探す</button>
+      `
+      $('.wrapper').html(backOrRunHtml);
+    }
+
+    $(document).on('click', '#catch.btn', fiftyFifty);
+    $(document).on('click', '[data-js="reset"].btn', backOrRun);
+
   </script>
 </body>
 </html>

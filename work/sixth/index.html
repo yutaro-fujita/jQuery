@@ -38,7 +38,7 @@
             `
               <p class="name">${rs.names[0].name}</p>
               <div>
-                <img class="img" src="${res.sprites.front_default}" alt="${rs.name}">
+                <img class="img" src="${res.sprites.front_default}" alt="${rs.names[0].name}">
               </div>
               <div>
                 <button class="btn" id="catch">捕まえる</button>
@@ -50,7 +50,6 @@
           }).fail(function(er) {
             console.log(
             `
-              ${console.log(er)}
               日本語なまえの取得に失敗しました。
             `
             )
@@ -63,17 +62,31 @@
           isGet === 1 ? success() : failure();
         }
 
-        //ボール画像これでいいのか？？？？
         function success() {
-          const doneHtml =
-          `
-            <p class="name">ゲットしました</p>
-            <div>
-              <img class="img" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png" alt="">
-            </div>
-            <button class="btn" data-js="reset">戻る</button>
-          `
-          $('.wrapper').html(doneHtml);
+          $.ajax({
+            url: 'https://pokeapi.co/api/v2/item/4',
+            method: 'GET'
+
+          }).done(function(r) {
+            console.log(r.sprites.default);
+            const doneHtml =
+            `
+              <p class="name">ゲットしました</p>
+              <div>
+                <img class="img" src="${r.sprites.default}" alt="モンスターボール">
+              </div>
+              <button class="btn" data-js="reset">戻る</button>
+            `
+            $('.wrapper').html(doneHtml);
+
+          }).fail(function(e) {
+            console.log(
+            `
+              モンスターボール画像の取得に失敗しました。
+            `
+            )
+          })
+
         }
 
         function failure() {
@@ -100,7 +113,6 @@
       }).fail(function(err) {
         console.log(
         `
-          ${console.log(err)}
           PokeAPIの取得に失敗しました。
         `
         )

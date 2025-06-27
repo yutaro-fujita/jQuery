@@ -15,15 +15,19 @@
   </div>
   <script src="../../common/js/jquery.js"></script>
   <script>
+
+    const id = Math.floor(Math.random() * ((151 - 1) + 1));
+
     $.ajax({
-      url: 'https://pokeapi.co/api/v2/pokemon/1',
+      url: `https://pokeapi.co/api/v2/pokemon/${id}`,
       method: 'GET'
     }).done(function(res) {
 
       console.log(res);
 
       function encounter() {
-        let encounterHtml =
+
+        const encounterHtml =
         `
           <p class="name">${res.name}</p>
           <div>
@@ -38,14 +42,13 @@
       }
 
       function fiftyFifty() {
-        let isGet = Math.round(Math.random());
-        console.log(isGet);
+        const isGet = Math.round(Math.random());
         isGet === 1 ? success() : failure();
       }
 
       //ボール画像これでいいのか？？？？
       function success() {
-        let doneHtml =
+        const doneHtml =
         `
           <p class="name">ゲットしました</p>
           <div>
@@ -57,7 +60,7 @@
       }
 
       function failure() {
-        let failHtml =
+        const failHtml =
         `
           <p class="text">逃げられてしまった...</p>
           <button class="btn mt" data-js="reset">戻る</button>
@@ -66,7 +69,7 @@
       }
 
       function backOrRun() {
-        let backOrRunHtml =
+        const backOrRunHtml =
         `
           <button type="button" class="btn search-btn" id="pokemon_search">ポケモンを探す</button>
         `

@@ -51,11 +51,7 @@
             viewEncounter(rs.names[0].name);
 
           }).fail(function(er) {
-            console.log(
-            `
-              日本語なまえの取得に失敗しました。
-            `
-            )
+            console.log('日本語なまえの取得に失敗しました。')
             viewEncounter('　　　　');
           })
 
@@ -64,11 +60,7 @@
         encounter();
 
       }).fail(function(err) {
-        console.log(
-        `
-          PokeAPIの取得に失敗しました。
-        `
-        )
+        console.log('PokeAPIの取得に失敗しました。')
       });
     })
 
@@ -99,11 +91,7 @@
         viewSuccess(r.sprites.default);
 
       }).fail(function(e) {
-        console.log(
-        `
-          モンスターボール画像の取得に失敗しました。
-        `
-        )
+        console.log('モンスターボール画像の取得に失敗しました。')
         viewSuccess('');
       })
     }

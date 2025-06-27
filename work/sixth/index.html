@@ -21,7 +21,6 @@
     }
 
     function viewEncounter(res, name) {
-      console.log(res);
       const encounterHtml =
       `
         <p class="name">${name}</p>
@@ -46,7 +45,7 @@
 
       }).fail(function(er) {
         console.log('日本語なまえの取得に失敗しました。')
-        viewEncounter('　　　　');
+        viewEncounter(res, '　　　　');
       })
     }
 

@@ -97,15 +97,6 @@
 
       }).done(function(r) {
         viewSuccess(r.sprites.default);
-        // const doneHtml =
-        // `
-        //   <p class="name">ゲットしました</p>
-        //   <div>
-        //     <img class="img" src="${r.sprites.default}" alt="モンスターボール">
-        //   </div>
-        //   <button class="btn" data-js="reset">戻る</button>
-        // `
-        // $('.wrapper').html(doneHtml);
 
       }).fail(function(e) {
         console.log(

@@ -16,73 +16,96 @@
   <script src="../../common/js/jquery.js"></script>
   <script>
 
-    const id = Math.floor(Math.random() * ((151 - 1) + 1));
+    $(document).on('click', '#pokemon_search.btn', function() {
 
-    $.ajax({
-      url: `https://pokeapi.co/api/v2/pokemon/${id}`,
-      method: 'GET'
-    }).done(function(res) {
+      const id = Math.floor(Math.random() * (151 - 1 + 1)) + 1;
 
-      console.log(res);
+      $.ajax({
+        url: `https://pokeapi.co/api/v2/pokemon/${id}`,
+        method: 'GET'
 
-      function encounter() {
+      }).done(function(res) {
 
-        const encounterHtml =
+        function encounter() {
+
+          $.ajax({
+            url: `${res.species.url}`,
+            method: 'GET'
+
+          }).done(function(rs) {
+            console.log(rs.names[0].name);
+            const encounterHtml =
+            `
+              <p class="name">${rs.names[0].name}</p>
+              <div>
+                <img class="img" src="${res.sprites.front_default}" alt="${rs.name}">
+              </div>
+              <div>
+                <button class="btn" id="catch">捕まえる</button>
+                <button class="btn" data-js="reset">逃げる</button>
+              </div>
+            `
+            $('.wrapper').html(encounterHtml);
+
+          }).fail(function(er) {
+            console.log(
+            `
+              ${console.log(er)}
+              日本語なまえの取得に失敗しました。
+            `
+            )
+          })
+
+        }
+
+        function fiftyFifty() {
+          const isGet = Math.round(Math.random());
+          isGet === 1 ? success() : failure();
+        }
+
+        //ボール画像これでいいのか？？？？
+        function success() {
+          const doneHtml =
+          `
+            <p class="name">ゲットしました</p>
+            <div>
+              <img class="img" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png" alt="">
+            </div>
+            <button class="btn" data-js="reset">戻る</button>
+          `
+          $('.wrapper').html(doneHtml);
+        }
+
+        function failure() {
+          const failHtml =
+          `
+            <p class="text">逃げられてしまった...</p>
+            <button class="btn mt" data-js="reset">戻る</button>
+          `
+          $('.wrapper').html(failHtml);
+        }
+
+        function backOrRun() {
+          const backOrRunHtml =
+          `
+            <button type="button" class="btn search-btn" id="pokemon_search">ポケモンを探す</button>
+          `
+          $('.wrapper').html(backOrRunHtml);
+        }
+
+        encounter();
+        $(document).on('click', '#catch.btn', fiftyFifty);
+        $(document).on('click', '[data-js="reset"].btn', backOrRun);
+
+      }).fail(function(err) {
+        console.log(
         `
-          <p class="name">${res.name}</p>
-          <div>
-            <img class="img" src="${res.sprites.front_default}" alt="${res.name}">
-          </div>
-          <div>
-            <button class="btn" id="catch">捕まえる</button>
-            <button class="btn" data-js="reset">逃げる</button>
-          </div>
+          ${console.log(err)}
+          PokeAPIの取得に失敗しました。
         `
-        $('.wrapper').html(encounterHtml);
-      }
-
-      function fiftyFifty() {
-        const isGet = Math.round(Math.random());
-        isGet === 1 ? success() : failure();
-      }
-
-      //ボール画像これでいいのか？？？？
-      function success() {
-        const doneHtml =
-        `
-          <p class="name">ゲットしました</p>
-          <div>
-            <img class="img" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png" alt="">
-          </div>
-          <button class="btn" data-js="reset">戻る</button>
-        `
-        $('.wrapper').html(doneHtml);
-      }
-
-      function failure() {
-        const failHtml =
-        `
-          <p class="text">逃げられてしまった...</p>
-          <button class="btn mt" data-js="reset">戻る</button>
-        `
-        $('.wrapper').html(failHtml);
-      }
-
-      function backOrRun() {
-        const backOrRunHtml =
-        `
-          <button type="button" class="btn search-btn" id="pokemon_search">ポケモンを探す</button>
-        `
-        $('.wrapper').html(backOrRunHtml);
-      }
-
-      $(document).on('click', '#pokemon_search.btn', encounter);
-      $(document).on('click', '#catch.btn', fiftyFifty);
-      $(document).on('click', '[data-js="reset"].btn', backOrRun);
-
-    }).fail(function(res) {
-      console.log('エラーが発生しました。')
-    });
+        )
+      });
+    })
   </script>
 </body>
 </html>

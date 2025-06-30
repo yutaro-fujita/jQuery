@@ -15,7 +15,105 @@
   </div>
   <script src="../../common/js/jquery.js"></script>
   <script>
-    // 回答はここに書いてね
+
+    function drawPokemonId() {
+      return Math.floor(Math.random() * (151 - 1 + 1)) + 1;
+    }
+
+    function viewEncounter(res, name) {
+      const encounterHtml =
+      `
+        <p class="name">${name}</p>
+        <div>
+          <img class="img" src="${res.sprites.front_default}" alt="${name}">
+        </div>
+        <div>
+          <button class="btn" id="catch">捕まえる</button>
+          <button class="btn" data-js="reset">逃げる</button>
+        </div>
+      `
+      $('.wrapper').html(encounterHtml);
+    }
+
+    function encounter(res) {
+      $.ajax({
+        url: `${res.species.url}`,
+        method: 'GET'
+
+      }).done(function(rs) {
+        viewEncounter(res, rs.names[0].name);
+
+      }).fail(function(er) {
+        console.log('日本語なまえの取得に失敗しました。')
+        viewEncounter(res, '　　　　');
+      })
+    }
+
+    function fiftyFifty() {
+      const isGet = Math.round(Math.random());
+      isGet === 1 ? success() : failure();
+    }
+
+    function viewSuccess(ballImage) {
+      const doneHtml =
+      `
+        <p class="name">ゲットしました</p>
+        <div>
+          <img class="img" src="${ballImage}" alt="モンスターボール">
+        </div>
+        <button class="btn" data-js="reset">戻る</button>
+      `
+      $('.wrapper').html(doneHtml);
+    }
+
+    function success() {
+      $.ajax({
+        url: 'https://pokeapi.co/api/v2/item/4',
+        method: 'GET'
+
+      }).done(function(r) {
+        viewSuccess(r.sprites.default);
+
+      }).fail(function(e) {
+        console.log('モンスターボール画像の取得に失敗しました。')
+        viewSuccess('');
+      })
+    }
+
+    function failure() {
+      const failHtml =
+      `
+        <p class="text">逃げられてしまった...</p>
+        <button class="btn mt" data-js="reset">戻る</button>
+      `
+      $('.wrapper').html(failHtml);
+    }
+
+    function backOrRun() {
+      const backOrRunHtml =
+      '<button type="button" class="btn search-btn" id="pokemon_search">ポケモンを探す</button>'
+      $('.wrapper').html(backOrRunHtml);
+    }
+
+    function searchPokemon() {
+      const id = drawPokemonId();
+
+      $.ajax({
+        url: `https://pokeapi.co/api/v2/pokemon/${id}`,
+        method: 'GET'
+
+      }).done(function(res) {
+        encounter(res);
+
+      }).fail(function(err) {
+        console.log('PokeAPIの取得に失敗しました。')
+      });
+    }
+
+    $(document).on('click', '#pokemon_search.btn', searchPokemon);
+    $(document).on('click', '#catch.btn', fiftyFifty);
+    $(document).on('click', '[data-js="reset"].btn', backOrRun);
+
   </script>
 </body>
 </html>
